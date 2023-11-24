@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void generateKey(char *key, int length) {
+    for (int i = 0; i < length; i++) {
+        key[i] = rand() % 26 + 'A'; // Generating a random uppercase letter
+    }
+}
+
+void encrypt(char *plaintext, char *key, char *ciphertext, int length) {
+    for (int i = 0; i < length; i++) {
+        ciphertext[i] = ((plaintext[i] - 'A') ^ (key[i] - 'A')) + 'A';
+    }
+}
+
+void decrypt(char *ciphertext, char *key, char *decryptedtext, int length) {
+    for (int i = 0; i < length; i++) {
+        decryptedtext[i] = ((ciphertext[i] - 'A') ^ (key[i] - 'A')) + 'A';
+    }
+}
+
+int main() {
+    char plaintext[100], key[100], ciphertext[100], decryptedtext[100];
+    int length;
+
+    printf("Enter the plaintext: ");
+    fgets(plaintext, sizeof(plaintext), stdin);
+    length = strlen(plaintext) - 1; // Exclude the newline character
+
+    generateKey(key, length);
+
+    encrypt(plaintext, key, ciphertext, length);
+
+    printf("Plaintext: %s\n", plaintext);
+    printf("Key      : %s\n", key);
+    printf("Ciphertext: %s\n", ciphertext);
+
+    decrypt(ciphertext, key, decryptedtext, length);
+
+    printf("Decrypted Text: %s\n", decryptedtext);
+
+    return 0;
+}
