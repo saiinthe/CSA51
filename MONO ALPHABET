@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+
+const char substitution_key[] = "QWERTYUIOPASDFGHJKLZXCVBNM";
+
+void encrypt(char *plaintext, char *ciphertext) {
+    int i;
+    for (i = 0; plaintext[i] != '\0'; i++) {
+        if (plaintext[i] >= 'A' && plaintext[i] <= 'Z') {
+            ciphertext[i] = substitution_key[plaintext[i] - 'A'];
+        } else {
+            ciphertext[i] = plaintext[i];
+        }
+    }
+    ciphertext[i] = '\0';
+}
+
+void decrypt(char *ciphertext, char *plaintext) {
+    int i;
+    for (i = 0; ciphertext[i] != '\0'; i++) {
+            if (ciphertext[i] >= 'A' && ciphertext[i] <= 'Z') {
+            plaintext[i] = substitution_key[ciphertext[i] + 'A'];
+        } else {
+            plaintext[i] = ciphertext[i];
+        }
+
+    }
+    plaintext[i] = '\0';
+}
+
+int main() {
+    char plaintext[100];
+    char ciphertext[100];
+    char decrypted[100];
+
+    printf("Enter a message (uppercase letters only): ");
+    scanf("%s", plaintext);
+
+    encrypt(plaintext, ciphertext);
+    printf("Encrypted message: %s\n", ciphertext);
+
+    decrypt(ciphertext, decrypted);
+    printf("Decrypted message: %s\n", plaintext);
+
+    return 0;
+}
